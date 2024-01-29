@@ -1,0 +1,9 @@
+# Only for Git 2.10.0 and higher.
+#
+# 1. Create .gitattributes file with "* text=auto eol=lf" line.
+# 2. Run "git add --renormalize ." to update line endings in the local repo (in the index) and commit the changes.
+# 3. Run "git rm --cached -r . && git reset --hard" to update line endings in the working tree.
+#    !!! Warning! This will remove all of your local changes. Use stashing before run this.
+# 4. Run "git ls-files --eol" to check the result.
+
+* text=auto eol=lf
