@@ -7,7 +7,7 @@
 
 int main(int argc, const char** argv)
 {
-    setvbuf(stdout, NULL, _IONBF, BUFSIZ);
+    setvbuf(stdout, NULL, _IONBF, 0);
 
     if (argc < 5)
     {
@@ -26,13 +26,16 @@ int main(int argc, const char** argv)
 
     if (!video_adapter_index_to_device_name(adapter_index, gdi_device))
     {
-        printf("video_adapter_index_to_device_name(adapter_index %u) error\n");
+        printf("video_adapter_index_to_device_name(adapter_index %u) error\n", (unsigned)adapter_index);
         return 1;
     }
 
     if (!video_adapter_resolution_set(adapter_index, resolution_width, resolution_height))
     {
-        printf("video_adapter_index_to_device_name(adapter_index %u) error\n");
+        printf("video_adapter_resolution_set(adapter_index %u, resolution_width %u, resolution_height %u) error\n",
+               (unsigned)adapter_index,
+               (unsigned)resolution_width,
+               (unsigned)resolution_height);
         return 2;
     }
 

@@ -63,28 +63,28 @@ static bool _dpi_scale_to_factor(const DISPLAYCONFIG_GET_RELATIVE_SCALE_FACTOR_I
 {
     int32_t idx_def = abs(relative->indexMin);
 
-    if (idx_def >= countof(g_dpi_scale))
+    if (idx_def >= (int32_t)countof(g_dpi_scale))
     {
         return false;
     }
 
     int32_t idx_min = idx_def + relative->indexMin;
 
-    if ((idx_min < 0) || (idx_min >= countof(g_dpi_scale)))
+    if ((idx_min < 0) || (idx_min >= (int32_t)countof(g_dpi_scale)))
     {
         return false;
     }
 
     int32_t idx = idx_def + relative->index;
 
-    if ((idx < 0) || (idx >= countof(g_dpi_scale)))
+    if ((idx < 0) || (idx >= (int32_t)countof(g_dpi_scale)))
     {
         return false;
     }
 
     int32_t idx_max = idx_def + relative->indexMax;
 
-    if ((idx_max < 0) || (idx_max >= countof(g_dpi_scale)))
+    if ((idx_max < 0) || (idx_max >= (int32_t)countof(g_dpi_scale)))
     {
         return false;
     }
@@ -102,7 +102,7 @@ static int32_t _dpi_scale_to_relative(const dpi_scale_factor_t* dpi_scale_factor
     int32_t idx     = countof(g_dpi_scale);
     int32_t idx_def = countof(g_dpi_scale);
 
-    for (int32_t i = 0; i < countof(g_dpi_scale); i++)
+    for (int32_t i = 0; i < (int32_t)countof(g_dpi_scale); i++)
     {
         uint32_t dpi_scale = g_dpi_scale[i];
 
@@ -117,7 +117,7 @@ static int32_t _dpi_scale_to_relative(const dpi_scale_factor_t* dpi_scale_factor
         }
     }
 
-    if ((idx == countof(g_dpi_scale)) || (idx_def == countof(g_dpi_scale)))
+    if ((idx == (int32_t)countof(g_dpi_scale)) || (idx_def == (int32_t)countof(g_dpi_scale)))
     {
         return 0;
     }
@@ -192,7 +192,7 @@ static bool _dpi_display_find(const wchar_t* gdi_device, display_t* display)
 static bool _dpi_scale_factor_get(const display_t* display, dpi_scale_factor_t* dpi_scale_factor)
 {
     DISPLAYCONFIG_GET_RELATIVE_SCALE_FACTOR_INDEX relative_scale_factor = {
-        .header.type      = DISPLAYCONFIG_DEVICE_INFO_GET_RELATIVE_SCALE_FACTOR_INDEX,
+        .header.type      = (DISPLAYCONFIG_DEVICE_INFO_TYPE)DISPLAYCONFIG_DEVICE_INFO_GET_RELATIVE_SCALE_FACTOR_INDEX,
         .header.size      = sizeof(relative_scale_factor),
         .header.adapterId = display->adapter_id,
         .header.id        = display->source_id,
@@ -254,8 +254,8 @@ bool dpi_scale_factor_set(const wchar_t* gdi_device, uint32_t scale)
                (unsigned)dpi_scale_factor.scale_max);
 
         DISPLAYCONFIG_SET_RELATIVE_SCALE_FACTOR_INDEX relative_scale_factor = {
-            .header.type      = DISPLAYCONFIG_DEVICE_INFO_SET_RELATIVE_SCALE_FACTOR_INDEX,
-            .header.size      = sizeof(relative_scale_factor),
+            .header.type = (DISPLAYCONFIG_DEVICE_INFO_TYPE)DISPLAYCONFIG_DEVICE_INFO_SET_RELATIVE_SCALE_FACTOR_INDEX,
+            .header.size = sizeof(relative_scale_factor),
             .header.adapterId = display.adapter_id,
             .header.id        = display.source_id,
             .index            = _dpi_scale_to_relative(&dpi_scale_factor, dpi_scale_factor.scale_max),
@@ -279,7 +279,7 @@ bool dpi_scale_factor_set(const wchar_t* gdi_device, uint32_t scale)
     printf("Applying scale factor %u%% to device %ls...", (unsigned)scale, gdi_device);
 
     DISPLAYCONFIG_SET_RELATIVE_SCALE_FACTOR_INDEX relative_scale_factor = {
-        .header.type      = DISPLAYCONFIG_DEVICE_INFO_SET_RELATIVE_SCALE_FACTOR_INDEX,
+        .header.type      = (DISPLAYCONFIG_DEVICE_INFO_TYPE)DISPLAYCONFIG_DEVICE_INFO_SET_RELATIVE_SCALE_FACTOR_INDEX,
         .header.size      = sizeof(relative_scale_factor),
         .header.adapterId = display.adapter_id,
         .header.id        = display.source_id,
@@ -294,7 +294,7 @@ bool dpi_scale_factor_set(const wchar_t* gdi_device, uint32_t scale)
         return false;
     }
 
-    printf("[done]\n", ret);
+    printf("[done]\n");
     return true;
 }
 
