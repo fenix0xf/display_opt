@@ -20,6 +20,7 @@ list(APPEND C_WARN
      -Wno-unused-function
 )
 
+set(APP_VERSION "1.01")
 set(TARGET_NAME display_opt)
 
 add_executable(${TARGET_NAME}
@@ -30,5 +31,5 @@ add_executable(${TARGET_NAME}
                src/dpi.c)
 
 target_compile_options(${TARGET_NAME} PUBLIC ${C_WARN})
-target_compile_definitions(${TARGET_NAME} PUBLIC _WIN32_WINNT=0x0A00)
+target_compile_definitions(${TARGET_NAME} PUBLIC _WIN32_WINNT=0x0A00 APP_VERSION=\"${APP_VERSION}\")
 target_link_libraries(${TARGET_NAME} -static) # TLS library static linking

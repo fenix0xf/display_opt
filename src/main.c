@@ -5,15 +5,18 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#define ERRORLEVEL (__COUNTER__ + 1)
+
 int main(int argc, const char** argv)
 {
     setvbuf(stdout, NULL, _IONBF, 0);
 
     if (argc < 5)
     {
-        video_adapter_info_print_all();
+        printf("\n\tDisplay options %s (%s %s)\n", APP_VERSION, __DATE__, __TIME__);
+        printf("\tUsage: display_opt adapter_index resolution_width resolution_height scale_factor_pct\n\n");
 
-        printf("Usage: display_opt adapter_index resolution_width resolution_height scale_factor_pct\n");
+        video_adapter_info_print_all();
         return 0;
     }
 
@@ -27,7 +30,7 @@ int main(int argc, const char** argv)
     if (!video_adapter_index_to_device_name(adapter_index, gdi_device))
     {
         printf("video_adapter_index_to_device_name(adapter_index %u) error\n", (unsigned)adapter_index);
-        return 1;
+        return ERRORLEVEL;
     }
 
     if (!video_adapter_resolution_set(adapter_index, resolution_width, resolution_height))
@@ -36,7 +39,7 @@ int main(int argc, const char** argv)
                (unsigned)adapter_index,
                (unsigned)resolution_width,
                (unsigned)resolution_height);
-        return 2;
+        return ERRORLEVEL;
     }
 
     dpi_scale_factor_t dpi_scale_factor;
@@ -44,19 +47,19 @@ int main(int argc, const char** argv)
     if (!dpi_scale_factor_get(gdi_device, &dpi_scale_factor))
     {
         printf("dpi_scale_factor_get(\"%ls\") error\n", gdi_device);
-        return 3;
+        return ERRORLEVEL;
     }
 
     if (!dpi_scale_factor_is_valid(&dpi_scale_factor, scale_factor_pct))
     {
         printf("Scale factor %u%% is invalid for GDI device \"%ls\"\n", (unsigned)scale_factor_pct, gdi_device);
-        return 4;
+        return ERRORLEVEL;
     }
 
     if (!dpi_scale_factor_set(gdi_device, scale_factor_pct))
     {
         printf("dpi_scale_factor_set(%ls, %u%%) error\n", gdi_device, (unsigned)scale_factor_pct);
-        return 5;
+        return ERRORLEVEL;
     }
 
     return 0;
