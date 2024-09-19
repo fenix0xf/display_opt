@@ -29,9 +29,9 @@ AlignConsecutiveMacros:
 AlignEscapedNewlines: Left
 AlignOperands: AlignAfterOperator
 AlignTrailingComments: Always
-AllowAllArgumentsOnNextLine: true
-AllowAllParametersOfDeclarationOnNextLine: true
-AllowAllConstructorInitializersOnNextLine: true
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllConstructorInitializersOnNextLine: false
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
@@ -54,7 +54,7 @@ BraceWrapping:
   AfterControlStatement: Always
   AfterEnum: true
   AfterFunction: true
-  AfterNamespace: false
+  AfterNamespace: true
   AfterObjCDeclaration: true
   AfterStruct: true
   AfterUnion: true
@@ -78,7 +78,7 @@ BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: true
-ColumnLimit: 120
+ColumnLimit: 140
 CommentPragmas: ""
 CompactNamespaces: true
 ConstructorInitializerIndentWidth: 4
@@ -140,7 +140,7 @@ LineEnding: LF
 MacroBlockBegin: ""
 MacroBlockEnd: ""
 MaxEmptyLinesToKeep: 1
-NamespaceIndentation: None
+NamespaceIndentation: All
 ObjCBinPackProtocolList: Auto
 ObjCBlockIndentWidth: 2
 ObjCBreakBeforeNestedBlockParam: true
